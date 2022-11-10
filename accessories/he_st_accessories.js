@@ -1112,6 +1112,18 @@ function HE_ST_Accessory(platform, group, device, accessory) {
         platform.addAttributeUsage('position', device.deviceid, thisCharacteristic);
         thisCharacteristic = that.getaddService(Service.WindowCovering).setCharacteristic(Characteristic.PositionState, Characteristic.PositionState.STOPPED);
     }
+    if (deviceHasAttributeCommand('mediaInputSource', 'setInputSource'))
+    {
+        platform.log('Adding MediaInputSource...');
+        var televisionService = that.getaddService(Service.Television);
+
+        var inputService = that.getaddService(Service.InputSource);
+
+        televisionService.addLinkedService(inputService);
+
+        // TODO JOEL
+        // https://github.com/grzegorz914/homebridge-xbox-tv/blob/3123a3ec4898b29fd0864e157576df90d8397e5f/index.js
+    }
     if (deviceHasAttributeCommand('speed', 'setSpeed'))
     {
         that.deviceGroup = "fan";
