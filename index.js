@@ -182,7 +182,7 @@ HE_ST_Platform.prototype = {
     {
         var that = this;
         return new Promise(function(resolve, reject) {
-            //that.log.error('addUpdateAccessory', deviceid, group, inAccessory, inDevice);
+            that.log.error('addUpdateAccessory', deviceid, group, inAccessory, inDevice);
             var accessory;
             if (that.delete_cache_devices == true) {
                 that.log.warn('Not adding new devices as flag delete_cache_devices is set to true in config');

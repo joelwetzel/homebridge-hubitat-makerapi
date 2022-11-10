@@ -1112,6 +1112,34 @@ function HE_ST_Accessory(platform, group, device, accessory) {
         platform.addAttributeUsage('position', device.deviceid, thisCharacteristic);
         thisCharacteristic = that.getaddService(Service.WindowCovering).setCharacteristic(Characteristic.PositionState, Characteristic.PositionState.STOPPED);
     }
+
+
+
+    // TODO JOEL
+    // https://github.com/grzegorz914/homebridge-xbox-tv/blob/3123a3ec4898b29fd0864e157576df90d8397e5f/index.js
+    if (deviceHasAttributeCommand('mediaInputSource', 'setInputSource') && that.device.attributes.hasOwnProperty('supportedInputs'))
+    {
+        platform.log('Adding MediaInputSource...');
+
+        var inputs = that.device.attributes['supportedInputs'];
+
+        platform.log('supportedInputs, count: ' + inputs.length);
+        for (var i = 0; i < inputs.length; i++)
+        {
+            platform.log('supportedInput' + i + ': ' + inputs[i]);
+        }
+
+        // var televisionService = that.getaddService(Service.Television);
+
+        // for (var i = 0; i < inputs.length; i++)
+        // {
+        //     var inputService = that.getaddService(Service.InputSource);     // I might need to make a separate one for each input instead of re-using.
+
+        //     televisionService.addLinkedService(inputService);
+        // }
+    }
+
+
     if (deviceHasAttributeCommand('speed', 'setSpeed'))
     {
         that.deviceGroup = "fan";
