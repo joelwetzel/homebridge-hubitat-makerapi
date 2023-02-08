@@ -1135,11 +1135,15 @@ function HE_ST_Accessory(platform, group, device, accessory) {
         platform.log('televisionService: ' + televisionService);
         platform.log('Characteristic.InputSourceType.HDMI: ' + Characteristic.InputSourceType.HDMI);
 
+        televisionService.setCharacteristic(Characteristic.ConfiguredName, device.name)
+        televisionService.setCharacteristic(Characteristic.SleepDiscoveryMode, Characteristic.SleepDiscoveryMode.ALWAYS_DISCOVERABLE);
+        televisionService.setCharacteristic(Characteristic.ActiveIdentifier, 1);
+
         for (var i = 0; i < inputs.length; i++)
         {
             var inputService = that.getaddService(Service.InputSource);     // I might need to make a separate one for each input instead of re-using.
             inputService.setCharacteristic(Characteristic.ConfiguredName, inputs[i]);
-            inputService.setCharacteristic(Characteristic.Identifier, i);
+            inputService.setCharacteristic(Characteristic.Identifier, i + 1);
             inputService.setCharacteristic(Characteristic.InputSourceType, Characteristic.InputSourceType.HDMI);
             inputService.setCharacteristic(Characteristic.IsConfigured, Characteristic.IsConfigured.CONFIGURED);
             inputService.setCharacteristic(Characteristic.CurrentVisibilityState, Characteristic.CurrentVisibilityState.SHOWN);
