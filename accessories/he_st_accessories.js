@@ -1121,8 +1121,8 @@ function HE_ST_Accessory(platform, group, device, accessory) {
     {
         platform.log('Adding MediaInputSource...');
 
-        var inputJson = that.device.attributes['supportedInputs'];
-        var inputs = JSON.parse(inputJson);
+        var inputCsv = that.device.attributes['supportedInputs'];
+        var inputs = inputCsv.split(',');
 
         platform.log('supportedInputs, count: ' + inputs.length);
         for (var i = 0; i < inputs.length; i++)
