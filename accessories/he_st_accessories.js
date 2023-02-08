@@ -1133,6 +1133,7 @@ function HE_ST_Accessory(platform, group, device, accessory) {
         var televisionService = that.getaddService(Service.Television);
 
         platform.log('televisionService: ' + televisionService);
+        platform.log('Characteristic.InputSourceType.HDMI: ' + Characteristic.InputSourceType.HDMI);
 
         for (var i = 0; i < inputs.length; i++)
         {
@@ -1158,6 +1159,7 @@ function HE_ST_Accessory(platform, group, device, accessory) {
                     value1: value
                 }).then(function(resp) {if (callback) callback(null); }).catch(function(err) { if (callback) callback(err); });
             });
+        platform.addAttributeUsage('mediaInputSource', device.deviceid, thisCharacteristic);
     }
 
 
