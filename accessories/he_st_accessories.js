@@ -1130,14 +1130,32 @@ function HE_ST_Accessory(platform, group, device, accessory) {
             platform.log('supportedInput_' + i + ': ' + inputs[i]);
         }
 
-        // var televisionService = that.getaddService(Service.Television);
+        var televisionService = that.getaddService(Service.Television);
 
-        // for (var i = 0; i < inputs.length; i++)
-        // {
-        //     var inputService = that.getaddService(Service.InputSource);     // I might need to make a separate one for each input instead of re-using.
+        for (var i = 0; i < inputs.length; i++)
+        {
+            var inputService = that.getaddService(Service.InputSource);     // I might need to make a separate one for each input instead of re-using.
+            inputService.setCharacteristic(Characteristic.ConfiguredName, inputs[i]);
+            inputService.setCharacteristic(Characteristic.Identifier, i);
+            inputService.setCharacteristic(Characteristic.InputSourceType, Characteristic.InputSourceType.HDMI);
+            inputService.setCharacteristic(Characteristic.IsConfigured, Characteristic.IsConfigured.CONFIGURED);
+            inputService.setCharacteristic(Characteristic.CurrentVisibilityState, Characteristic.CurrentVisibilityState.SHOWN);
+            inputService.setCharacteristic(Characteristic.TargetVisibilityState, Characteristic.CurrentVisibilityState.SHOWN);
+            televisionService.addLinkedService(inputService);
+        }
 
-        //     televisionService.addLinkedService(inputService);
-        // }
+        thisCharacteristic = televisionService.getCharacteristic(Characteristic.ActiveIdentifier)
+            .on('get', function(callback) {
+                var mediaInputSource = that.device.attributes['mediaInputSource'];
+                platform.log('Get mediaInputSource: ' + mediaInputSource);
+                callback(null, mediaInputSource);
+            })
+            .on('set', function(value,callback) {
+                platform.log('Set mediaInputSource: ' + value);
+                platform.api.runCommand(device.deviceid, "setInputSource", {
+                    value1: value
+                }).then(function(resp) {if (callback) callback(null); }).catch(function(err) { if (callback) callback(err); });
+            });
     }
 
 
