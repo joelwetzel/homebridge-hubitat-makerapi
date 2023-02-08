@@ -1130,6 +1130,8 @@ function HE_ST_Accessory(platform, group, device, accessory) {
             platform.log('supportedInput_' + i + ': ' + inputs[i]);
         }
 
+        that.category = Categories.TELEVISION;
+
         var televisionService = that.getaddService(Service.Television);
 
         platform.log('televisionService: ' + televisionService);
@@ -1139,7 +1141,9 @@ function HE_ST_Accessory(platform, group, device, accessory) {
         televisionService.setCharacteristic(Characteristic.SleepDiscoveryMode, Characteristic.SleepDiscoveryMode.ALWAYS_DISCOVERABLE);
         televisionService.setCharacteristic(Characteristic.ActiveIdentifier, 1);
 
-        for (var i = 0; i < inputs.length; i++)
+        var i = 0;
+
+        //for (var i = 0; inputs.length; i++)
         {
             var inputService = that.getaddService(Service.InputSource);     // I might need to make a separate one for each input instead of re-using.
             inputService.setCharacteristic(Characteristic.ConfiguredName, inputs[i]);
@@ -1164,6 +1168,8 @@ function HE_ST_Accessory(platform, group, device, accessory) {
                 }).then(function(resp) {if (callback) callback(null); }).catch(function(err) { if (callback) callback(err); });
             });
         platform.addAttributeUsage('mediaInputSource', device.deviceid, thisCharacteristic);
+
+        televisionService.setPrimaryService(true);
     }
 
 
