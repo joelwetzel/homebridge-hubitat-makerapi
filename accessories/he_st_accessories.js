@@ -1130,8 +1130,6 @@ function HE_ST_Accessory(platform, group, device, accessory) {
             platform.log('supportedInput_' + i + ': ' + inputs[i]);
         }
 
-        that.category = Categories.TELEVISION;
-
         var televisionService = that.getaddService(Service.Television);
 
         platform.log('televisionService: ' + televisionService);
