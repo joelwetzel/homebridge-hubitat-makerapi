@@ -1132,6 +1132,8 @@ function HE_ST_Accessory(platform, group, device, accessory) {
 
         var televisionService = that.getaddService(Service.Television);
 
+        platform.log('televisionService: ' + televisionService);
+
         for (var i = 0; i < inputs.length; i++)
         {
             var inputService = that.getaddService(Service.InputSource);     // I might need to make a separate one for each input instead of re-using.
