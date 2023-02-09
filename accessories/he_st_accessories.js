@@ -1141,7 +1141,7 @@ function HE_ST_Accessory(platform, group, device, accessory) {
         televisionService.setCharacteristic(Characteristic.SleepDiscoveryMode, Characteristic.SleepDiscoveryMode.ALWAYS_DISCOVERABLE);
         televisionService.setCharacteristic(Characteristic.ActiveIdentifier, 1);
 
-        for (var i = 0; inputs.length; i++)
+        for (var i = 0; i < inputs.length; i++)
         {
             const inputService = that.getaddService(Service.InputSource);
             inputService.setCharacteristic(Characteristic.ConfiguredName, inputs[i]);
@@ -1157,7 +1157,7 @@ function HE_ST_Accessory(platform, group, device, accessory) {
             .on('get', function(callback) {
                 var mediaInputSource = that.device.attributes['mediaInputSource'];
                 platform.log('Get mediaInputSource: ' + mediaInputSource);
-                callback(null, 1); //mediaInputSource);
+                callback(null, mediaInputSource);
             })
             .on('set', function(value,callback) {
                 platform.log('Set mediaInputSource: ' + value);
