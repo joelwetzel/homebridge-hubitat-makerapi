@@ -1122,7 +1122,7 @@ function HE_ST_Accessory(platform, group, device, accessory) {
         platform.log('Adding MediaInputSource...');
 
         that.deviceGroup = "television";
-        
+
         var inputCsv = that.device.attributes['supportedInputs'];
         var inputs = inputCsv.split(',');
 
@@ -1159,7 +1159,7 @@ function HE_ST_Accessory(platform, group, device, accessory) {
             .on('get', function(callback) {
                 var mediaInputSource = that.device.attributes['mediaInputSource'];
                 platform.log('Get mediaInputSource: ' + mediaInputSource);
-                callback(null, mediaInputSource);
+                callback(null, 1); //mediaInputSource);
             })
             .on('set', function(value,callback) {
                 platform.log('Set mediaInputSource: ' + value);
