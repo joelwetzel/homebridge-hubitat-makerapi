@@ -1132,7 +1132,7 @@ function HE_ST_Accessory(platform, group, device, accessory) {
             platform.log('supportedInput_' + i + ': ' + inputs[i]);
         }
 
-        var televisionService = that.getaddService(Service.Television);
+        var televisionService = that.getaddService(Service.Television, 34); // Subtype comes from: https://github.com/homebridge/HAP-NodeJS/blob/529205eacd9e1ec3e9629548676c2f8bfe16566c/src/lib/Accessory.ts
 
         platform.log('televisionService: ' + televisionService);
         platform.log('Characteristic.InputSourceType.HDMI: ' + Characteristic.InputSourceType.HDMI);
