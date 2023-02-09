@@ -1121,6 +1121,8 @@ function HE_ST_Accessory(platform, group, device, accessory) {
     {
         platform.log('Adding MediaInputSource...');
 
+        that.deviceGroup = "television";
+        
         var inputCsv = that.device.attributes['supportedInputs'];
         var inputs = inputCsv.split(',');
 
