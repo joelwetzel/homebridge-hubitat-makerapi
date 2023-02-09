@@ -210,7 +210,7 @@ HE_ST_Platform.prototype = {
                             accessory = new HE_ST_Accessory(that, group, data, inAccessory);
                             // that.log(accessory);
                             if (accessory !== undefined) {
-                                that.log('accessory !== undefined: ' + accessory.name);
+                                that.log('((inDevice === null) || (inDevice === undefined)) accessory !== undefined: ' + accessory.name);
                                 if (accessory.accessory.services.length <= 1 || accessory.deviceGroup === 'unknown') {
                                     if (that.firstpoll) {
                                         that.log.warn('Device Skipped - Name ' + accessory.name + ', ID ' + accessory.deviceid + ', JSON: ' + JSON.stringify(accessory.device));
@@ -224,6 +224,7 @@ HE_ST_Platform.prototype = {
                                         that.hb_api.registerPlatformAccessories(pluginName, platformName, [accessory.accessory]);
 
                                         if (accessory.deviceGroup == 'television') {
+                                            that.log('((inDevice === null) || (inDevice === undefined)) publishExternalAccessories');
                                             that.hb_api.publishExternalAccessories(pluginName, [accessory.accessory]);
                                         }
                                     }
@@ -257,7 +258,7 @@ HE_ST_Platform.prototype = {
                     inDevice.programmableButton = that.isProgrammableButton(deviceid);
                     accessory = new HE_ST_Accessory(that, group, inDevice, inAccessory);
                     if (accessory !== undefined) {
-                        that.log('accessory !== undefined: ' + accessory.name);
+                        that.log('else accessory !== undefined: ' + accessory.name);
                         if (accessory.accessory.services.length <= 1 || accessory.deviceGroup === 'unknown') {
                             if (that.firstpoll) {
                                 that.log.warn('Device Skipped - Name ' + accessory.name + ', ID ' + accessory.deviceid + ', JSON: ' + JSON.stringify(inDevice));
@@ -270,6 +271,7 @@ HE_ST_Platform.prototype = {
                                 that.hb_api.registerPlatformAccessories(pluginName, platformName, [accessory.accessory]);
 
                                 if (accessory.deviceGroup == 'television') {
+                                    that.log('else publishExternalAccessories');
                                     that.hb_api.publishExternalAccessories(pluginName, [accessory.accessory]);
                                 }
                             }
