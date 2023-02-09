@@ -1143,7 +1143,7 @@ function HE_ST_Accessory(platform, group, device, accessory) {
 
         for (var i = 0; i < inputs.length; i++)
         {
-            const inputService = that.getaddService(Service.InputSource);
+            const inputService = that.accessory.addService(Service.InputSource);
             inputService.setCharacteristic(Characteristic.ConfiguredName, inputs[i]);
             inputService.setCharacteristic(Characteristic.Identifier, i + 1);
             inputService.setCharacteristic(Characteristic.InputSourceType, Characteristic.InputSourceType.HDMI);
