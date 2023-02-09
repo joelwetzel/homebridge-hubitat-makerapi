@@ -222,6 +222,10 @@ HE_ST_Platform.prototype = {
                                     if (inAccessory === null) {
                                         that.log('about to registerPlatformAccessories: ' + accessory.name + ', ' + accessory.deviceGroup);
                                         that.hb_api.registerPlatformAccessories(pluginName, platformName, [accessory.accessory]);
+
+                                        if (accessory.deviceGroup == 'television') {
+                                            that.hb_api.publishExternalAccessories(pluginName, [accessory.accessory]);
+                                        }
                                     }
                                     accessory.loadData(data);
                                     resolve(accessory);
@@ -264,6 +268,10 @@ HE_ST_Platform.prototype = {
                             if (inAccessory === null) {
                                 that.log('about to registerPlatformAccessories: ' + accessory.name + ', ' + accessory.deviceGroup);
                                 that.hb_api.registerPlatformAccessories(pluginName, platformName, [accessory.accessory]);
+
+                                if (accessory.deviceGroup == 'television') {
+                                    that.hb_api.publishExternalAccessories(pluginName, [accessory.accessory]);
+                                }
                             }
                             accessory.loadData(inDevice);
                             resolve(accessory);
