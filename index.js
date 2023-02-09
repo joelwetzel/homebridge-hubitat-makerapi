@@ -182,8 +182,6 @@ HE_ST_Platform.prototype = {
     {
         var that = this;
 
-        that.log('addUpdateAccessory: ' + deviceid);
-
         return new Promise(function(resolve, reject) {
             // that.log.error('addUpdateAccessory', deviceid, group, inAccessory, inDevice);
             var accessory;
@@ -194,13 +192,11 @@ HE_ST_Platform.prototype = {
             else if (that.deviceLookup && that.deviceLookup[uuidGen(deviceid)]) {
                 if (that.deviceLookup[uuidGen(deviceid)] instanceof HE_ST_Accessory) {
                     accessory = that.deviceLookup[uuidGen(deviceid)];
-                    that.log('Found in that.deviceLookup: ' + accessory.name);
                     //accessory.loadData(devices[i]);
                     resolve(accessory);
                 }
             } else {
                 if ((inDevice === null) || (inDevice === undefined)) {
-                    that.log('((inDevice === null) || (inDevice === undefined))');
                     he_st_api.getDeviceInfo(deviceid)
                         .then(function(data) {
                             var fromCache = ((inAccessory !== undefined) && (inAccessory !== null))
@@ -210,7 +206,6 @@ HE_ST_Platform.prototype = {
                             accessory = new HE_ST_Accessory(that, group, data, inAccessory);
                             // that.log(accessory);
                             if (accessory !== undefined) {
-                                that.log('((inDevice === null) || (inDevice === undefined)) accessory !== undefined: ' + accessory.name);
                                 if (accessory.accessory.services.length <= 1 || accessory.deviceGroup === 'unknown') {
                                     if (that.firstpoll) {
                                         that.log.warn('Device Skipped - Name ' + accessory.name + ', ID ' + accessory.deviceid + ', JSON: ' + JSON.stringify(accessory.device));
@@ -220,10 +215,7 @@ HE_ST_Platform.prototype = {
                                     that.log.good("Device Added" + (fromCache ? ' (Cache)' : '') + " - Name " + accessory.name + ", ID " + accessory.deviceid); //+", JSON: "+ JSON.stringify(device));
                                     that.deviceLookup[uuidGen(accessory.deviceid)] = accessory;
                                     if (inAccessory === null) {
-                                        that.log('about to registerPlatformAccessories: ' + accessory.name + ', ' + accessory.deviceGroup);
-
                                         if (accessory.deviceGroup == 'television') {
-                                            that.log('((inDevice === null) || (inDevice === undefined)) publishExternalAccessories');
                                             that.hb_api.publishExternalAccessories(pluginName, [accessory.accessory]);
                                         }
                                         else {
@@ -255,12 +247,10 @@ HE_ST_Platform.prototype = {
                         });
                 }
                 else {
-                    that.log('else');
                     var fromCache = ((inAccessory !== undefined) && (inAccessory !== null))
                     inDevice.programmableButton = that.isProgrammableButton(deviceid);
                     accessory = new HE_ST_Accessory(that, group, inDevice, inAccessory);
                     if (accessory !== undefined) {
-                        that.log('else accessory !== undefined: ' + accessory.name);
                         if (accessory.accessory.services.length <= 1 || accessory.deviceGroup === 'unknown') {
                             if (that.firstpoll) {
                                 that.log.warn('Device Skipped - Name ' + accessory.name + ', ID ' + accessory.deviceid + ', JSON: ' + JSON.stringify(inDevice));
@@ -269,10 +259,8 @@ HE_ST_Platform.prototype = {
                             that.log.good("Device Added" + (fromCache ? ' (Cache)' : '') + " - Name " + accessory.name + ", ID " + accessory.deviceid); //+", JSON: "+ JSON.stringify(device));
                             that.deviceLookup[uuidGen(accessory.deviceid)] = accessory;
                             if (inAccessory === null) {
-                                that.log('about to registerPlatformAccessories: ' + accessory.name + ', ' + accessory.deviceGroup);
 
                                 if (accessory.deviceGroup == 'television') {
-                                    that.log('else publishExternalAccessories');
                                     that.hb_api.publishExternalAccessories(pluginName, [accessory.accessory]);
                                 }
                                 else {

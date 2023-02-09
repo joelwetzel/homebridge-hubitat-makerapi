@@ -1124,7 +1124,7 @@ function HE_ST_Accessory(platform, group, device, accessory) {
         that.deviceGroup = "television";
 
         var inputCsv = that.device.attributes['supportedInputs'];
-        var inputs = inputCsv.split(',');
+        const inputs = inputCsv.split(',');
 
         platform.log('supportedInputs, count: ' + inputs.length);
         for (var i = 0; i < inputs.length; i++)
@@ -1141,11 +1141,9 @@ function HE_ST_Accessory(platform, group, device, accessory) {
         televisionService.setCharacteristic(Characteristic.SleepDiscoveryMode, Characteristic.SleepDiscoveryMode.ALWAYS_DISCOVERABLE);
         televisionService.setCharacteristic(Characteristic.ActiveIdentifier, 1);
 
-        var i = 0;
-
-        //for (var i = 0; inputs.length; i++)
+        for (var i = 0; inputs.length; i++)
         {
-            var inputService = that.getaddService(Service.InputSource);     // I might need to make a separate one for each input instead of re-using.
+            const inputService = that.getaddService(Service.InputSource);
             inputService.setCharacteristic(Characteristic.ConfiguredName, inputs[i]);
             inputService.setCharacteristic(Characteristic.Identifier, i + 1);
             inputService.setCharacteristic(Characteristic.InputSourceType, Characteristic.InputSourceType.HDMI);
@@ -1159,7 +1157,7 @@ function HE_ST_Accessory(platform, group, device, accessory) {
             .on('get', function(callback) {
                 var mediaInputSource = that.device.attributes['mediaInputSource'];
                 platform.log('Get mediaInputSource: ' + mediaInputSource);
-                callback(null, 1); //mediaInputSource);
+                callback(null, mediaInputSource);
             })
             .on('set', function(value,callback) {
                 platform.log('Set mediaInputSource: ' + value);
