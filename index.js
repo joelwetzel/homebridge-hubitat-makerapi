@@ -221,11 +221,13 @@ HE_ST_Platform.prototype = {
                                     that.deviceLookup[uuidGen(accessory.deviceid)] = accessory;
                                     if (inAccessory === null) {
                                         that.log('about to registerPlatformAccessories: ' + accessory.name + ', ' + accessory.deviceGroup);
-                                        that.hb_api.registerPlatformAccessories(pluginName, platformName, [accessory.accessory]);
 
                                         if (accessory.deviceGroup == 'television') {
                                             that.log('((inDevice === null) || (inDevice === undefined)) publishExternalAccessories');
                                             that.hb_api.publishExternalAccessories(pluginName, [accessory.accessory]);
+                                        }
+                                        else {
+                                            that.hb_api.registerPlatformAccessories(pluginName, platformName, [accessory.accessory]);
                                         }
                                     }
                                     accessory.loadData(data);
@@ -268,11 +270,13 @@ HE_ST_Platform.prototype = {
                             that.deviceLookup[uuidGen(accessory.deviceid)] = accessory;
                             if (inAccessory === null) {
                                 that.log('about to registerPlatformAccessories: ' + accessory.name + ', ' + accessory.deviceGroup);
-                                that.hb_api.registerPlatformAccessories(pluginName, platformName, [accessory.accessory]);
 
                                 if (accessory.deviceGroup == 'television') {
                                     that.log('else publishExternalAccessories');
                                     that.hb_api.publishExternalAccessories(pluginName, [accessory.accessory]);
+                                }
+                                else {
+                                    that.hb_api.registerPlatformAccessories(pluginName, platformName, [accessory.accessory]);
                                 }
                             }
                             accessory.loadData(inDevice);
