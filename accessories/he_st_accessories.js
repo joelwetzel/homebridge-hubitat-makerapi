@@ -1167,6 +1167,26 @@ function HE_ST_Accessory(platform, group, device, accessory) {
             });
         platform.addAttributeUsage('mediaInputSource', device.deviceid, thisCharacteristic);
 
+        thisCharacteristic = televisionService.getCharacteristic(Characteristic.Active)
+            .on('get', function(callback) {
+                var switch = that.device.attributes['switch'];
+                platform.log('Get switch: ' + switch)
+                var activeValue = switch == 'on' ? Characteristic.Active.ACTIVE : Characteristic.Active.INACTIVE;
+                callback(null, activeValue);
+            })
+            .on('set', function(value,callback) {
+                platform.log('Set mediaInputSource: ' + value);
+                if (value == Characteristic.Active.ACTIVE) {
+                    platform.api.runCommand(device.deviceid, "on", {
+                        }).then(function(resp) {if (callback) callback(null); }).catch(function(err) { if (callback) callback(err); });
+                }
+                else {
+                    platform.api.runCommand(device.deviceid, "off", {
+                        }).then(function(resp) {if (callback) callback(null); }).catch(function(err) { if (callback) callback(err); });
+                }
+            });
+        platform.addAttributeUsage('switch', device.deviceid, thisCharacteristic);
+
         televisionService.setPrimaryService(true);
     }
 
