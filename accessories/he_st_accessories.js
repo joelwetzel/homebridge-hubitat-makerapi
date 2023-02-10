@@ -1169,9 +1169,9 @@ function HE_ST_Accessory(platform, group, device, accessory) {
 
         thisCharacteristic = televisionService.getCharacteristic(Characteristic.Active)
             .on('get', function(callback) {
-                var switch = that.device.attributes['switch'];
-                platform.log('Get switch: ' + switch)
-                var activeValue = switch == 'on' ? Characteristic.Active.ACTIVE : Characteristic.Active.INACTIVE;
+                var switchValue = that.device.attributes['switch'];
+                platform.log('Get switch: ' + switchValue)
+                var activeValue = switchValue == 'on' ? Characteristic.Active.ACTIVE : Characteristic.Active.INACTIVE;
                 callback(null, activeValue);
             })
             .on('set', function(value,callback) {
