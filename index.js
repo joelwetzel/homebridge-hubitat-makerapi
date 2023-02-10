@@ -33,6 +33,7 @@ module.exports = function(homebridge) {
     Service = homebridge.hap.Service;
     Characteristic = homebridge.hap.Characteristic;
     Accessory = homebridge.hap.Accessory;
+    Category = homebridge.hap.Categories;
     User = homebridge.user;
     uuid = homebridge.hap.uuid;
     PlatformAccessory = homebridge.platformAccessory;
@@ -216,6 +217,7 @@ HE_ST_Platform.prototype = {
                                     that.deviceLookup[uuidGen(accessory.deviceid)] = accessory;
                                     if (inAccessory === null) {
                                         if (accessory.deviceGroup == 'television') {
+                                            accessory.accessory.category = Category.TELEVISION;
                                             that.hb_api.publishExternalAccessories(pluginName, [accessory.accessory]);
                                         }
                                         else {
@@ -261,6 +263,7 @@ HE_ST_Platform.prototype = {
                             if (inAccessory === null) {
 
                                 if (accessory.deviceGroup == 'television') {
+                                    accessory.accessory.category = Category.TELEVISION;
                                     that.hb_api.publishExternalAccessories(pluginName, [accessory.accessory]);
                                 }
                                 else {
