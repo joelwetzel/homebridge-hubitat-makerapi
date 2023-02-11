@@ -1178,12 +1178,10 @@ function HE_ST_Accessory(platform, group, device, accessory) {
             .on('set', function(value,callback) {
                 platform.log('Set mediaInputSource: ' + value);
                 if (value == Characteristic.Active.ACTIVE) {
-                    platform.api.runCommand(device.deviceid, "on", {
-                        }).then(function(resp) {if (callback) callback(null); }).catch(function(err) { if (callback) callback(err); });
+                    platform.api.runCommand(device.deviceid, 'on').then(function(resp) {if (callback) callback(null); }).catch(function(err) { if (callback) callback(err); });
                 }
                 else {
-                    platform.api.runCommand(device.deviceid, "off", {
-                        }).then(function(resp) {if (callback) callback(null); }).catch(function(err) { if (callback) callback(err); });
+                    platform.api.runCommand(device.deviceid, 'off').then(function(resp) {if (callback) callback(null); }).catch(function(err) { if (callback) callback(err); });
                 }
             });
         platform.addAttributeUsage('switch', device.deviceid, thisCharacteristic);
