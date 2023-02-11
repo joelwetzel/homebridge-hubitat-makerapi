@@ -518,7 +518,7 @@ function HE_ST_Accessory(platform, group, device, accessory) {
             that.getaddService(Service.Thermostat).setCharacteristic(Characteristic.StatusActive, true);
 
         }
-    if (that.device.attributes.hasOwnProperty('switch') && group !== 'mode' && !deviceIsFan())
+    if (that.device.attributes.hasOwnProperty('switch') && group !== 'mode' && !deviceIsFan() && !deviceHasAttributeCommand('mediaInputSource', 'setInputSource'))
     {
         var serviceType = null;
         if (deviceHasAttributeCommand('level', 'setLevel')
