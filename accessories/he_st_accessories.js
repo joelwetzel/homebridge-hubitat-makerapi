@@ -1119,23 +1119,17 @@ function HE_ST_Accessory(platform, group, device, accessory) {
     // https://github.com/grzegorz914/homebridge-xbox-tv/blob/3123a3ec4898b29fd0864e157576df90d8397e5f/index.js
     if (deviceHasAttributeCommand('mediaInputSource', 'setInputSource') && that.device.attributes.hasOwnProperty('supportedInputs'))
     {
-        platform.log('Adding MediaInputSource...');
-
         that.deviceGroup = "television";
 
         var inputCsv = that.device.attributes['supportedInputs'];
         const inputs = inputCsv.split(',');
 
-        platform.log('supportedInputs, count: ' + inputs.length);
         for (var i = 0; i < inputs.length; i++)
         {
             platform.log('supportedInput_' + i + ': ' + inputs[i]);
         }
 
         var televisionService = that.getaddService(Service.Television, device.name, 'Television'); // Subtype comes from: https://github.com/homebridge/HAP-NodeJS/blob/529205eacd9e1ec3e9629548676c2f8bfe16566c/src/lib/Accessory.ts
-
-        platform.log('televisionService: ' + televisionService);
-        platform.log('Characteristic.InputSourceType.HDMI: ' + Characteristic.InputSourceType.HDMI);
 
         televisionService.setCharacteristic(Characteristic.ConfiguredName, device.name)
         televisionService.setCharacteristic(Characteristic.SleepDiscoveryMode, Characteristic.SleepDiscoveryMode.ALWAYS_DISCOVERABLE);
