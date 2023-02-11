@@ -1151,11 +1151,11 @@ function HE_ST_Accessory(platform, group, device, accessory) {
         thisCharacteristic = televisionService.getCharacteristic(Characteristic.ActiveIdentifier)
             .on('get', function(callback) {
                 var mediaInputSource = that.device.attributes['mediaInputSource'];
-                platform.log('Get mediaInputSource: ' + mediaInputSource);
+                //platform.log('Get mediaInputSource: ' + mediaInputSource);
                 callback(null, mediaInputSource);
             })
             .on('set', function(value,callback) {
-                platform.log('Set mediaInputSource: ' + value);
+                //platform.log('Set mediaInputSource: ' + value);
                 platform.api.runCommand(device.deviceid, "setInputSource", {
                     value1: value
                 }).then(function(resp) {if (callback) callback(null); }).catch(function(err) { if (callback) callback(err); });
@@ -1165,12 +1165,12 @@ function HE_ST_Accessory(platform, group, device, accessory) {
         thisCharacteristic = televisionService.getCharacteristic(Characteristic.Active)
             .on('get', function(callback) {
                 var switchValue = that.device.attributes['switch'];
-                platform.log('Get switch: ' + switchValue)
+                //platform.log('Get switch: ' + switchValue)
                 var activeValue = switchValue == 'on' ? Characteristic.Active.ACTIVE : Characteristic.Active.INACTIVE;
                 callback(null, activeValue);
             })
             .on('set', function(value,callback) {
-                platform.log('Set mediaInputSource: ' + value);
+                //platform.log('Set mediaInputSource: ' + value);
                 if (value == Characteristic.Active.ACTIVE) {
                     platform.api.runCommand(device.deviceid, 'on').then(function(resp) {if (callback) callback(null); }).catch(function(err) { if (callback) callback(err); });
                 }
