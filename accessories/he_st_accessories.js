@@ -1140,6 +1140,7 @@ function HE_ST_Accessory(platform, group, device, accessory) {
         televisionService.setCharacteristic(Characteristic.ConfiguredName, device.name)
         televisionService.setCharacteristic(Characteristic.SleepDiscoveryMode, Characteristic.SleepDiscoveryMode.ALWAYS_DISCOVERABLE);
         televisionService.setCharacteristic(Characteristic.ActiveIdentifier, 1);
+        televisionService.setCharacteristic(Characteristic.PowerModeSelection, Characteristic.PowerModeSelection.HIDE);
 
         for (var i = 0; i < inputs.length; i++)
         {
