@@ -1143,8 +1143,6 @@ function HE_ST_Accessory(platform, group, device, accessory) {
             inputService.setCharacteristic(Characteristic.Identifier, i + 1);
             inputService.setCharacteristic(Characteristic.InputSourceType, Characteristic.InputSourceType.HDMI);
             inputService.setCharacteristic(Characteristic.IsConfigured, Characteristic.IsConfigured.CONFIGURED);
-            inputService.setCharacteristic(Characteristic.CurrentVisibilityState, Characteristic.CurrentVisibilityState.SHOWN);
-            inputService.setCharacteristic(Characteristic.TargetVisibilityState, Characteristic.CurrentVisibilityState.SHOWN);
             televisionService.addLinkedService(inputService);
         }
 
@@ -1159,6 +1157,7 @@ function HE_ST_Accessory(platform, group, device, accessory) {
                 platform.api.runCommand(device.deviceid, "setInputSource", {
                     value1: value
                 }).then(function(resp) {if (callback) callback(null); }).catch(function(err) { if (callback) callback(err); });
+
             });
         platform.addAttributeUsage('mediaInputSource', device.deviceid, thisCharacteristic);
 
@@ -1172,10 +1171,12 @@ function HE_ST_Accessory(platform, group, device, accessory) {
             .on('set', function(value,callback) {
                 //platform.log('Set mediaInputSource: ' + value);
                 if (value == Characteristic.Active.ACTIVE) {
-                    platform.api.runCommand(device.deviceid, 'on').then(function(resp) {if (callback) callback(null); }).catch(function(err) { if (callback) callback(err); });
+                    platform.api.runCommand(device.deviceid, 'on');//.then(function(resp) {if (callback) callback(null); }).catch(function(err) { if (callback) callback(err); });
+                    if (callback) { callback(null); }
                 }
                 else {
-                    platform.api.runCommand(device.deviceid, 'off').then(function(resp) {if (callback) callback(null); }).catch(function(err) { if (callback) callback(err); });
+                    platform.api.runCommand(device.deviceid, 'off');//.then(function(resp) {if (callback) callback(null); }).catch(function(err) { if (callback) callback(err); });
+                    if (callback) { callback(null); }
                 }
             });
         platform.addAttributeUsage('switch', device.deviceid, thisCharacteristic);
